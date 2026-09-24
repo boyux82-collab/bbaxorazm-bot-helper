@@ -75,7 +75,7 @@ def start_handler(message):
 
     markup = types.InlineKeyboardMarkup()
     web_app_btn = types.InlineKeyboardButton(
-        text="✨ Ilovani ochish",
+        text="📂 OPEN",
         web_app=types.WebAppInfo(url=user_app_url)
     )
     markup.add(web_app_btn)
