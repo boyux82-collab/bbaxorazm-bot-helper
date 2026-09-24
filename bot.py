@@ -8,7 +8,7 @@ from telebot import types
 
 # ---------------- SOZLAMALAR ----------------
 TOKEN = "8995426563:AAHD2YnX65UOUnRroKWceGJgck-Dvo-TNtY"
-WEB_APP_URL = "https://spontaneous-unicorn-0d2a5f.netlify.app"
+WEB_APP_URL = "https://boyux82-collab.github.io/bbaxorazm-bot-helper/"
 ADMIN_ID = 206710278
 # --------------------------------------------
 
