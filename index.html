@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BBA Xorazm Yordamchi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --primary: #0088cc;
+      --primary-gradient: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --bg-color: #f0f4f9;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-subtle: rgba(226, 232, 240, 0.8);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 20px rgba(0, 136, 204, 0.08);
+      --radius-lg: 18px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background: var(--bg-color);
+      color: var(--text-main);
+      padding: 16px 14px 28px;
+      line-height: 1.5;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding: 4px 6px;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .avatar-wrapper {
+      position: relative;
+    }
+    .avatar {
+      width: 46px;
+      height: 46px;
+      background: var(--primary-gradient);
+      color: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 19px;
+      box-shadow: 0 6px 14px rgba(0, 136, 204, 0.35);
+    }
+    .status-dot {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 13px;
+      height: 13px;
+      background: #10b981;
+      border: 2.5px solid #fff;
+      border-radius: 50%;
+    }
+    .user-text .greeting {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .user-text .name {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .badge {
+      font-size: 11px;
+      padding: 6px 12px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 30px;
+      font-weight: 700;
+    }
+    .stat-banner {
+      background: var(--primary-gradient);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 24px rgba(0, 136, 204, 0.28);
+    }
+    .stat-info .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.88;
+    }
+    .stat-info .stat-value {
+      font-size: 26px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .stat-badge {
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .tabs-wrapper {
+      margin-bottom: 18px;
+    }
+    .tabs {
+      display: flex;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px;
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 11px 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 4px 14px rgba(0, 136, 204, 0.15);
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title .icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(0, 136, 204, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .card p {
+      font-size: 13.5px;
+      color: #475569;
+      line-height: 1.65;
+    }
+    .schedule-box {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 8px 14px;
+      border: 1px solid #edf2f7;
+    }
+    .schedule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13.5px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    }
+    .schedule-row:last-child {
+      border-bottom: none;
+    }
+    .schedule-day {
+      color: var(--text-muted);
+    }
+    .schedule-time {
+      font-weight: 700;
+    }
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      margin-top: 14px;
+    }
+    .region-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: #ffffff;
+      color: #334155;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s ease;
+    }
+    .region-link:active {
+      background: #f0f7ff;
+      border-color: #93c5fd;
+      color: var(--primary);
+    }
+    .region-link .tg-dot {
+      width: 7px;
+      height: 7px;
+      background: #38bdf8;
+      border-radius: 50%;
+    }
+    .exam-card {
+      margin-bottom: 18px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+    }
+    .exam-img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 240px;
+    }
+    .exam-body {
+      padding: 16px;
+    }
+    .exam-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+    .tg-post-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-gradient);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0, 136, 204, 0.25);
+    }
+    .faq-item {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border: 1px solid #e2e8f0;
+    }
+    .faq-item.open {
+      background: #ffffff;
+      border-color: #93c5fd;
+    }
+    .faq-q {
+      font-weight: 700;
+      font-size: 13.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-arrow {
+      transition: transform 0.2s ease;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .faq-a {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 10px;
+      display: none;
+      line-height: 1.6;
+      border-top: 1px dashed #e2e8f0;
+      padding-top: 10px;
+    }
+    .faq-item.open .faq-a {
+      display: block;
+    }
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+	.avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="user-info">
+      <div class="avatar-wrapper">
+        <div class="avatar" id="userAvatar">B</div>
+        <div class="status-dot"></div>
+      </div>
+      <div class="user-text">
+        <div class="greeting">Xush kelibsiz</div>
+        <div class="name" id="userName">Foydalanuvchi</div>
+      </div>
+    </div>
+    <div class="badge">● Rasmiy Agentlik</div>
+  </div>
+
+  <!-- Tezkor xizmatlar banneri -->
+  <div class="stat-banner" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+    <div class="stat-info">
+      <div class="stat-label">Rasmiy xizmatlar portali</div>
+      <div class="stat-value" style="font-size: 19px; margin-top: 4px;">my.uzbmb.uz</div>
+      <p style="font-size: 11.5px; opacity: 0.85; margin-top: 2px;">Ro‘yxatdan o‘tish va natijalarni tekshirish</p>
+    </div>
+    <a href="https://my.uzbmb.uz" target="_blank" style="text-decoration: none; color: white;">
+      <div class="stat-badge" style="display: flex; align-items: center; gap: 4px; padding: 10px 14px;">
+        Kirish ↗
+      </div>
+    </a>
+  </div>
+
+  <div class="tabs-wrapper">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('about')">🏢 Biz haqimizda</button>
+      <button class="tab-btn" onclick="switchTab('exams')">📅 Imtihonlar</button>
+      <button class="tab-btn" onclick="switchTab('faq')">❔ Savol-Javob</button>
+    </div>
+  </div>
+
+  <!-- BIZ HAQIMIZDA -->
+  <div id="tab-about">
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-box">🎯</div>
+        Bizning maqsadimiz
+      </div>
+      <p>Bilim va malakalarni baholash agentligi faoliyati, test sinovlari, milliy sertifikatlar va imtihon jarayonlari bo‘yicha ishonchli, tezkor va rasmiy ma’lumotlarni taqdim etish.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-box">🕒</div>
+        Ish vaqti va tartibimiz
+      </div>
+      <div class="schedule-box">
+        <div class="schedule-row">
+          <span class="schedule-day">Dushanba — Juma</span>
+          <span class="schedule-time">09:00 — 18:00</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-day">Tushlik tanaffusi</span>
+          <span class="schedule-time">13:00 — 14:00</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-day">Shanba, Yakshanba</span>
+          <span class="schedule-time" style="color: #ef4444;">Dam olish kuni</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-box">📢</div>
+        Hududiy bo‘lim telegram kanallari
+      </div>
+      <div class="regions-grid">
+        <a href="https://t.me/BBANukus" target="_blank" class="region-link"><span>Qoraqalpog‘iston</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/BBAAndijon" target="_blank" class="region-link"><span>Andijon</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/bbanamangan" target="_blank" class="region-link"><span>Namangan</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/dtm_fargona" target="_blank" class="region-link"><span>Farg‘ona</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/BBABuxoro" target="_blank" class="region-link"><span>Buxoro</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/BBAXorazm" target="_blank" class="region-link" style="border-color: #38bdf8; font-weight: 700; color: #0284c7;"><span>Xorazm</span> <div class="tg-dot" style="background:#0284c7;"></div></a>
+        <a href="https://t.me/BBA_Surxondaryo" target="_blank" class="region-link"><span>Surxondaryo</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/BBA_Qashqadaryo_viloyati" target="_blank" class="region-link"><span>Qashqadaryo</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/jizzax_dtm" target="_blank" class="region-link"><span>Jizzax</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/BBANavoiy" target="_blank" class="region-link"><span>Navoiy</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/BBASamarqand" target="_blank" class="region-link"><span>Samarqand</span> <div class="tg-dot"></div></a>
+        <a href="https://t.me/BBASirdaryo" target="_blank" class="region-link"><span>Sirdaryo</span> <div class="tg-dot"></div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMTIHONLAR -->
+  <div id="tab-exams" style="display: none;">
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-box">📊</div>
+        Imtihon grafiklari (2026)
+      </div>
+
+      <div class="exam-card">
+        <img src="https://gov.uz/_next/image?url=https%3A%2F%2Fapi-portal.gov.uz%2Fuploads%2F165%2F2026%2F08%2F26%2Fd889631d-7dfa-27e2-9dfb-e229946034f7_lists_slider_.jpg&w=1920&q=75" 
+             alt="Chet tillari milliy sertifikat imtihonlari" 
+             class="exam-img"
+             onerror="this.onerror=null; this.src='https://placehold.co/600x320/0088cc/ffffff?text=Chet+Tillari+Grafiki';">
+        <div class="exam-body">
+          <div class="exam-name">📌 Chet tillaridan 2026-yilning 2-yarmida bo‘lib o‘tadigan milliy sertifikat imtihonlari</div>
+          <a href="https://t.me/BaholashUz/11476" target="_blank" class="tg-post-btn">Grafikni to‘liq ochish ↗</a>
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <img src="https://gov.uz/_next/image?url=https%3A%2F%2Fapi-portal.gov.uz%2Fuploads%2F165%2F2026%2F08%2F26%2F0f2ef6fd-6e8c-19ee-f31c-e616ab65f310_lists_slider_.jpg&w=1920&q=75" 
+             alt="Umumta'lim fanlari imtihonlari" 
+             class="exam-img"
+             onerror="this.onerror=null; this.src='https://placehold.co/600x320/0088cc/ffffff?text=Umumtalim+Fanlari+Grafiki';">
+        <div class="exam-body">
+          <div class="exam-name">📌 Umumta'lim fanlaridan 2026-yilning 2-yarmida bo‘lib o‘tadigan milliy sertifikat imtihonlari</div>
+          <a href="https://t.me/BaholashUz/11477" target="_blank" class="tg-post-btn">Grafikni to‘liq ochish ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div id="tab-faq" style="display: none;">
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-box">💡</div>
+        Ko‘p beriladigan savollar
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Milliy sertifikat imtihoniga qanday ro‘yxatdan o‘tiladi? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">my.uzbmb.uz rasmiy veb-sayti orqali elektron ariza topshiriladi.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Apellatsiya arizasi qachon topshiriladi? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Natijalar e’lon qilingan kundan boshlab belgilangan muddat ichida shaxsiy kabinet orqali topshiriladi.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2026 BBA Xorazm
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+	if (tg) {
+      tg.ready();
+      tg.expand();
+    }
+
+    function applyUserData() {
+      let displayName = "";
+      let photoUrl = "";
+
+      // 1. Havoladan ismni tekshirish
+      const urlParams = new URLSearchParams(window.location.search);
+      const nameFromUrl = urlParams.get('name');
+      if (nameFromUrl) {
+        displayName = decodeURIComponent(nameFromUrl);
+      }
+
+      // 2. Telegram WebApp orqali ism va photo_url ni olish
+      if (tg && tg.initDataUnsafe?.user) {
+        const u = tg.initDataUnsafe.user;
+        if (!displayName && u.first_name) {
+          displayName = u.first_name;
+        }
+        if (u.photo_url) {
+          photoUrl = u.photo_url;
+        }
+      }
+
+      // Ismni chiqarish
+      if (displayName) {
+        const nameEl = document.getElementById('userName');
+        if (nameEl) nameEl.textContent = displayName;
+      }
+
+      // Rasmni chiqarish (agar rasm bo'lmasa harf qoladi)
+      const avatarEl = document.getElementById('userAvatar');
+      if (avatarEl) {
+        if (photoUrl) {
+          avatarEl.innerHTML = `<img src="${photoUrl}" alt="Avatar">`;
+        } else if (displayName) {
+          avatarEl.textContent = displayName.charAt(0).toUpperCase();
+        }
+      }
+    }
+
+    applyUserData();
+    document.addEventListener("DOMContentLoaded", applyUserData);
+    window.addEventListener("load", applyUserData);
+
+    function switchTab(tabName) {
+      ['about', 'exams', 'faq'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (el) el.style.display = (t === tabName) ? 'block' : 'none';
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
+      }
+    }
+
+    function toggleFaq(item) {
+      item.classList.toggle('open');
+    }
+
+    // Render serveridan obunachilar sonini olish
+    async function fetchStats() {
+      try {
+        const res = await fetch("https://bbaxorazm-bot-helper.onrender.com/api/stats");
+        const data = await res.json();
+        if (data && data.users_count !== undefined) {
+          document.getElementById('userCount').textContent = Number(data.users_count).toLocaleString();
+        }
+      } catch (err) {}
+    }
+    fetchStats();
+  </script>
+</body>
+</html>
