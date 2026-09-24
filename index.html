@@ -8,7 +8,53 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  
+  
   <style>
+  /* Katta toifalar (akkordeon) stili */
+    .faq-category {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+    }
+    .faq-category.open {
+      border-color: #38bdf8;
+      box-shadow: var(--shadow-md);
+    }
+    .category-header {
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      transition: background 0.2s;
+    }
+    .faq-category.open .category-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .category-arrow {
+      font-size: 14px;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-muted);
+    }
+    .faq-category.open .category-arrow {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+    .category-content {
+      display: none;
+      padding: 12px;
+    }
+    .faq-category.open .category-content {
+      display: block;
+    }
+  
     :root {
       --primary: #0088cc;
       --primary-gradient: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
@@ -455,6 +501,7 @@
   </div>
 
   <!-- FAQ -->
+<!-- 3. SAVOL-JAVOB BO'LIMI -->
   <div id="tab-faq" style="display: none;">
     <div class="card">
       <div class="card-title">
@@ -462,15 +509,190 @@
         Ko‘p beriladigan savollar
       </div>
 
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Milliy sertifikat imtihoniga qanday ro‘yxatdan o‘tiladi? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">my.uzbmb.uz rasmiy veb-sayti orqali elektron ariza topshiriladi.</div>
+      <!-- 1-KATEGORIYA: 73-SON QAROR (CHET TILLARI) -->
+      <div class="faq-category" id="cat-foreign">
+        <div class="category-header" onclick="toggleCategory('cat-foreign')">
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 6px;">
+              🌐 Chet tilini bilish darajasini aniqlash
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">
+              VM 73-son qarori asosida
+            </div>
+          </div>
+          <span class="category-arrow">▼</span>
+        </div>
+
+        <div class="category-content">
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Chet tili imtihoniga qanday ro‘yxatdan o‘tiladi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Imtihonga Yagona interaktiv davlat xizmatlari portali — my.gov.uz orqali elektron tarzda ro‘yxatdan o‘tiladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon kunini mustaqil tanlash mumkinmi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Ha, talabgor belgilangan imtihon kunlari orasidan o‘ziga qulay sanani tanlashi mumkin.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon sanasi va joyi qachon ma’lum qilinadi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Imtihon joyi va aniq vaqti imtihon sanasidan kamida 3 kun oldin talabgorga xabar qilinadi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon uchun qancha to‘lov qilinadi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Sertifikat olish uchun BHMning 1,5 baravari, ma’lumotnoma olish uchun esa BHMning 1 baravari miqdorida to‘lov belgilanadi. my.gov.uz orqali ro‘yxatdan o‘tilganda belgilangan to‘lovning 90 foizi undiriladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon qanday bosqichlardan iborat? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Imtihon tinglab tushunish, o‘qish, yozma ish va gapirish bo‘limlaridan iborat.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon natijalari qachon e’lon qilinadi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Imtihon natijalari imtihon yakunlangan kundan boshlab bir haftadan kechiktirmay e’lon qilinadi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Sertifikat olish uchun necha ball to‘plash kerak? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Alohida darajalar bo‘yicha imtihonda maksimal ballning kamida 60 foizini to‘plash talab etiladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Chet tili sertifikati qancha muddat amal qiladi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Chet tilini bilish darajasini tasdiqlovchi sertifikat 2 yil muddatga beriladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Sertifikat qanday shaklda beriladi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Sertifikat QR-kod bilan elektron shaklda rasmiylashtiriladi va my.gov.uz orqali yuboriladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihonga qanday hujjat bilan kelish kerak? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Pasport, ID-karta yoki tug‘ilganlik to‘g‘risidagi guvohnomaning asli bilan kelish lozim.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihonga kechikib kelgan talabgor imtihonga kiritiladimi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Yo‘q. Imtihonga kechikkan talabgor imtihonga qo‘yilmaydi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihonda qatnasha olmagan talabgor nima qilishi kerak? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Uzrli sabab bo‘lsa, imtihon o‘tkazilgan kundan boshlab 3 kun ichida my.gov.uz orqali murojaat qilishi lozim.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon natijasidan norozi bo‘lsam, apellyatsiya berishim mumkinmi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Ha, imtihon natijasidan norozi bo‘lgan talabgor imtihon o‘tkazilgan kundan boshlab 3 ish kuni ichida apellyatsiya berishi mumkin.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Apellyatsiya qancha muddatda ko‘rib chiqiladi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Apellyatsiya shikoyati ikki hafta ichida ko‘rib chiqiladi va natijasi talabgorga elektron tarzda yetkaziladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihonda telefon yoki boshqa elektron qurilmalardan foydalanish mumkinmi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Yo‘q. Imtihon hududiga telefon, elektron qurilmalar, kitob va shpargalka olib kirish yoki ulardan foydalanish taqiqlanadi. Qoidabuzarlik aniqlansa, talabgor imtihondan chetlashtirilishi mumkin.</div>
+          </div>
+        </div>
       </div>
 
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Apellatsiya arizasi qachon topshiriladi? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Natijalar e’lon qilingan kundan boshlab belgilangan muddat ichida shaxsiy kabinet orqali topshiriladi.</div>
+      <!-- 2-KATEGORIYA: 646-SON QAROR (UMUMTA'LIM FANLARI) -->
+      <div class="faq-category" id="cat-general">
+        <div class="category-header" onclick="toggleCategory('cat-general')">
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: #4338ca; display: flex; align-items: center; gap: 6px;">
+              📚 Umumta’lim fanlari bo‘yicha milliy sertifikat
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">
+              VM 646-son qarori asosida
+            </div>
+          </div>
+          <span class="category-arrow">▼</span>
+        </div>
+
+        <div class="category-content">
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikat nima? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Milliy sertifikat — talabgorning muayyan umumta’lim fanini bilish darajasini tasdiqlovchi davlat namunasidagi elektron hujjat.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikatni qanday olish mumkin? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Milliy sertifikat olish uchun my.gov.uz portali orqali ro‘yxatdan o‘tib, belgilangan test sinovida qatnashish kerak.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Qaysi fanlardan milliy sertifikat olish mumkin? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Ona tili va adabiyot, matematika, kimyo, biologiya, fizika, geografiya, tarix hamda huquqshunoslik fanlaridan milliy sertifikat olish mumkin.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikat imtihoni uchun qancha to‘lov qilinadi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Imtihon uchun ariza berilgan kundagi bazaviy hisoblash miqdorining 1,5 baravari miqdorida to‘lov belgilanadi. my.gov.uz orqali ro‘yxatdan o‘tilganda belgilangan to‘lovning 90 foizi undiriladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikat necha yil amal qiladi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Milliy sertifikat 3 yil muddatga beriladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikat qanday darajalarga bo‘linadi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Milliy sertifikat A+, A, B+, B, C+ va C darajalariga bo‘linadi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikat olish uchun necha ball to‘plash kerak? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Sertifikat darajasi to‘plangan ballga qarab belgilanadi. C darajali sertifikat uchun kamida 46 ball talab etiladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">A+ darajali sertifikat olish uchun qancha ball kerak? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">A+ darajali sertifikat olish uchun 70 balldan yuqori natija qayd etish kerak.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikat oliy ta’lim muassasasiga kirishda qanday imtiyoz beradi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">A+ va A darajali sertifikat egalari tegishli fandan maksimal ball oladi. B+, B, C+ va C darajali sertifikat egalari esa sertifikat natijasiga mos ravishda proporsional ball oladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikatga ega abituriyentga majburiy fanlardan qanday ball beriladi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Milliy sertifikatga ega abituriyentga tegishli majburiy fan bo‘yicha belgilangan maksimal ball beriladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon sanasi va joyini qayerdan bilish mumkin? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Imtihon sanasi va joyi my.gov.uz portali hamda Agentlikning rasmiy veb-saytida e’lon qilinadi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon natijalari qachon e’lon qilinadi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Test sinovlari natijalari imtihon yakunlangan kundan boshlab 21 ish kunidan kechiktirmay e’lon qilinadi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Imtihon natijasidan norozi bo‘lsam, apellyatsiya berishim mumkinmi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Ha, natijalar e’lon qilingan kundan boshlab 5 ish kuni ichida my.gov.uz orqali apellyatsiya shikoyati berish mumkin.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Apellyatsiya qancha muddatda ko‘rib chiqiladi? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Apellyatsiya shikoyati ikki hafta ichida ko‘rib chiqiladi va talabgorga uning natijasi haqida xabar beriladi.</div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Milliy sertifikatni qanday yuklab olish mumkin? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a">Sertifikat elektron shaklda beriladi. Uni shaxsiy kabinet orqali yuklab olish mumkin.</div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -485,7 +707,17 @@
       tg.expand();
     }
 
-    function applyUserData() {
+    function toggleCategory(catId) {
+      const cat = document.getElementById(catId);
+      if (cat) {
+        cat.classList.toggle('open');
+        if (tg && tg.HapticFeedback) {
+          tg.HapticFeedback.selectionChanged();
+        }
+      }
+    }
+	
+	function applyUserData() {
       let displayName = "";
       let photoUrl = "";
 
@@ -528,17 +760,30 @@
     document.addEventListener("DOMContentLoaded", applyUserData);
     window.addEventListener("load", applyUserData);
 
+    // 1. Bo'limlarni almashtirish va xotiraga saqlash
     function switchTab(tabName) {
       ['about', 'exams', 'faq'].forEach(t => {
         const el = document.getElementById('tab-' + t);
         if (el) el.style.display = (t === tabName) ? 'block' : 'none';
       });
 
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add('active');
-      }
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(btn => btn.classList.remove('active'));
+
+      if (tabName === 'about' && tabBtns[0]) tabBtns[0].classList.add('active');
+      if (tabName === 'exams' && tabBtns[1]) tabBtns[1].classList.add('active');
+      if (tabName === 'faq' && tabBtns[2]) tabBtns[2].classList.add('active');
+
+      localStorage.setItem('active_tab', tabName);
     }
+
+    // 2. Sahifa reload bo'lganda oxirgi ochilgan bo'limni tiklash
+    function restoreActiveTab() {
+      const savedTab = localStorage.getItem('active_tab') || 'about';
+      switchTab(savedTab);
+    }
+
+    restoreActiveTab();
 
     function toggleFaq(item) {
       item.classList.toggle('open');
