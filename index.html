@@ -375,6 +375,47 @@
       object-fit: cover;
       display: block;
     }
+	/* Rasm kattalashishi uchun modal stili */
+    .img-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      cursor: zoom-out;
+    }
+    .img-modal.open {
+      display: flex;
+    }
+    .img-modal img {
+      max-width: 100%;
+      max-height: 92vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: zoomIn 0.2s ease;
+    }
+    .img-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -390,7 +431,7 @@
         <div class="name" id="userName">Foydalanuvchi</div>
       </div>
     </div>
-    <div class="badge">● Rasmiy Agentlik</div>
+    <div class="badge">● Online</div>
   </div>
 
   <!-- Tezkor xizmatlar banneri -->
@@ -480,6 +521,8 @@
         <img src="https://gov.uz/_next/image?url=https%3A%2F%2Fapi-portal.gov.uz%2Fuploads%2F165%2F2026%2F08%2F26%2Fd889631d-7dfa-27e2-9dfb-e229946034f7_lists_slider_.jpg&w=1920&q=75" 
              alt="Chet tillari milliy sertifikat imtihonlari" 
              class="exam-img"
+             onclick="openImageModal(this.src)"
+             style="cursor: zoom-in;"
              onerror="this.onerror=null; this.src='https://placehold.co/600x320/0088cc/ffffff?text=Chet+Tillari+Grafiki';">
         <div class="exam-body">
           <div class="exam-name">📌 Chet tillaridan 2026-yilning 2-yarmida bo‘lib o‘tadigan milliy sertifikat imtihonlari</div>
@@ -491,6 +534,8 @@
         <img src="https://gov.uz/_next/image?url=https%3A%2F%2Fapi-portal.gov.uz%2Fuploads%2F165%2F2026%2F08%2F26%2F0f2ef6fd-6e8c-19ee-f31c-e616ab65f310_lists_slider_.jpg&w=1920&q=75" 
              alt="Umumta'lim fanlari imtihonlari" 
              class="exam-img"
+             onclick="openImageModal(this.src)"
+             style="cursor: zoom-in;"
              onerror="this.onerror=null; this.src='https://placehold.co/600x320/0088cc/ffffff?text=Umumtalim+Fanlari+Grafiki';">
         <div class="exam-body">
           <div class="exam-name">📌 Umumta'lim fanlaridan 2026-yilning 2-yarmida bo‘lib o‘tadigan milliy sertifikat imtihonlari</div>
@@ -701,6 +746,24 @@
   </div>
 
   <script>
+  function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('modalImg');
+      if (modal && img) {
+        img.src = src;
+        modal.classList.add('open');
+        if (tg && tg.HapticFeedback) {
+          tg.HapticFeedback.impactOccurred('light');
+        }
+      }
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      if (modal) {
+        modal.classList.remove('open');
+      }
+    }
     const tg = window.Telegram?.WebApp;
 	if (tg) {
       tg.ready();
@@ -801,5 +864,10 @@
     }
     fetchStats();
   </script>
+  <!-- Rasm kattalashishi uchun oyna -->
+  <div id="imageModal" class="img-modal" onclick="closeImageModal()">
+    <span class="img-modal-close">&times;</span>
+    <img id="modalImg" src="" alt="Kattalashtirilgan rasm">
+  </div>
 </body>
 </html>
