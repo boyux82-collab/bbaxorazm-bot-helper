@@ -82,8 +82,7 @@ def start_handler(message):
 
     matn = (
         f"👋 Assalomu alaykum, {first_name}!\n\n"
-        f"BBA Xorazm viloyati yordamchi botiga xush kelibsiz! ✨\n"
-        f"Kerakli ma'lumotlar bilan tanishish uchun quyidagi tugmani bosing 👇"
+        f"Yordamchi botiga xush kelibsiz! ✨\n"
     )
     bot.send_message(message.chat.id, matn, reply_markup=markup)
 
